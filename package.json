@@ -1,0 +1,21 @@
+{
+  "name": "jeopardy-server",
+  "version": "1.0.0",
+  "description": "Jeopardy PPTX generator - upload CSV/XLSX or POST JSON to generate a PPTX from a server-side template",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^5.5.0",
+    "docxtemplater": "^3.67.3",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "pizzip": "^3.2.0",
+    "xlsx": "^0.18.5"
+  }
+}

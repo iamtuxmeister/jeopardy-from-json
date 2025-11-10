@@ -1,0 +1,29 @@
+import fs from "fs";
+import path from "path";
+import PizZip from "pizzip";
+import Docxtemplater from "docxtemplater";
+
+export async function generateJeopardyPPTX({ categories, questions }) {
+  const templatePath = path.resolve("src/ppt/jeopardy_template.pptx");
+  const content = fs.readFileSync(templatePath);
+
+  const zip = new PizZip(content);
+  const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+
+  const data = {};
+
+  categories.forEach((cat, i) => {
+    data[`CATEGORY_${i + 1}`] = cat;
+  });
+
+  questions.forEach(q => {
+    const catIndex = categories.indexOf(q.category) + 1;
+    data[`Q${catIndex}_${q.value}`] = q.question;
+    data[`A${catIndex}_${q.value}`] = q.answer;
+  });
+
+  doc.render(data);
+
+  return doc.getZip().generate({ type: "nodebuffer" });
+}
+
